@@ -2,23 +2,24 @@
   "id": "meal-preps-by-jojo",
   "name": "Meal Preps by JoJo",
   "description": "Premium organic meal prep service website for Chef Jojo in Los Angeles",
-  "status": "in-progress",
+  "status": "active",
   "pipeline": {
-    "stage": "deployment",
-    "progress": 90,
+    "stage": "maintenance",
+    "progress": 95,
     "phases": {
       "planning": "done",
       "design": "done",
       "development": "done",
-      "testing": "in-progress",
-      "deployment": "in-progress",
-      "maintenance": "pending"
+      "testing": "done",
+      "deployment": "done",
+      "maintenance": "in-progress"
     }
   },
-  "currentFocus": "Deploying to Vercel",
+  "currentFocus": "Live on Vercel - monitoring and enhancements",
   "blockers": [],
   "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
-  "repository": "",
+  "repository": "https://github.com/sswood89/meal-preps-by-jojo",
+  "deploymentUrl": "https://meal-preps-by-jojo.vercel.app",
   "createdAt": "2026-01-24",
   "updatedAt": "2026-01-24"
 }
