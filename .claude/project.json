@@ -2,7 +2,11 @@
   "id": "meal-preps-by-jojo",
   "name": "Meal Preps by JoJo",
   "description": "Premium organic meal prep service website for Chef Jojo in Los Angeles",
+  "version": "1.0.0",
   "status": "active",
+  "priority": "high",
+  "category": "client",
+  "tags": ["website", "react", "vite", "tailwind", "meal-prep", "los-angeles"],
   "pipeline": {
     "stage": "maintenance",
     "progress": 95,
@@ -11,15 +15,47 @@
       "design": "done",
       "development": "done",
       "testing": "done",
-      "deployment": "done",
-      "maintenance": "in-progress"
+      "deployment": "done"
     }
   },
+  "goals": [
+    "Launch premium meal prep website",
+    "Showcase Chef Jojo's services",
+    "Enable customer inquiries",
+    "Display pricing and menu options"
+  ],
+  "milestones": [
+    {
+      "name": "Initial Build",
+      "status": "done",
+      "date": "2026-01-24"
+    },
+    {
+      "name": "Vercel Deployment",
+      "status": "done",
+      "date": "2026-01-24"
+    },
+    {
+      "name": "GitHub Repository",
+      "status": "done",
+      "date": "2026-01-24"
+    }
+  ],
   "currentFocus": "Live on Vercel - monitoring and enhancements",
   "blockers": [],
-  "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
-  "repository": "https://github.com/sswood89/meal-preps-by-jojo",
-  "deploymentUrl": "https://meal-preps-by-jojo.vercel.app",
+  "notes": "Built with premium animations using Framer Motion. Hero features Unsplash food photography.",
+  "links": {
+    "repo": "https://github.com/sswood89/meal-preps-by-jojo",
+    "docs": "",
+    "deployment": "https://meal-preps-by-jojo.vercel.app",
+    "figma": ""
+  },
+  "tech": {
+    "stack": ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
+    "ports": [5173],
+    "dependencies": ["framer-motion", "tailwindcss", "vite"]
+  },
   "createdAt": "2026-01-24",
-  "updatedAt": "2026-01-24"
+  "updatedAt": "2026-01-24",
+  "path": "/Users/shaka/meal-preps-by-jojo"
 }
