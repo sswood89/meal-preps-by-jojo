@@ -54,14 +54,14 @@ function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-[#2A2A2A] text-white rounded-lg border border-[#3A3A3A] focus:border-[#C65D3B] focus:outline-none transition-colors"
+                className="input-premium flex-1"
                 required
               />
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#C65D3B] text-white font-semibold rounded-lg hover:bg-[#B54D2B] transition-colors whitespace-nowrap"
+                className="btn-primary whitespace-nowrap"
               >
-                {isSubscribed ? 'Subscribed!' : 'Subscribe'}
+                <span>{isSubscribed ? 'Subscribed!' : 'Subscribe'}</span>
               </button>
             </form>
           </div>
@@ -88,11 +88,11 @@ function Footer() {
             </p>
 
             {/* Certification Badges */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {['Organic Certified', 'ServSafe', 'Local Sourced'].map((badge) => (
                 <span
                   key={badge}
-                  className="px-3 py-1.5 bg-[#2A2A2A] rounded-full text-[#A3A3A3] text-sm border border-[#3A3A3A]"
+                  className="px-3.5 py-1.5 bg-gradient-to-br from-[#2A2A2A] to-[#252525] rounded-full text-[#A3A3A3] text-sm border border-[#333] hover:border-[#C65D3B]/30 transition-colors cursor-default"
                 >
                   {badge}
                 </span>
@@ -176,7 +176,7 @@ function Footer() {
               © 2025 Meal Preps by JoJo. All rights reserved.
             </p>
             <p className="text-[#737373] text-sm flex items-center gap-2">
-              Made with <span className="text-red-500">❤️</span> in Los Angeles
+              Made with <span className="text-[#C65D3B] animate-pulse">❤️</span> in Los Angeles
             </p>
           </div>
         </div>

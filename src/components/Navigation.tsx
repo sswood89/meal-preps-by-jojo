@@ -22,9 +22,9 @@ function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#FAF7F2]/95 backdrop-blur-sm shadow-sm'
+          ? 'bg-[#FAF7F2]/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_4px_12px_rgba(0,0,0,0.05)]'
           : 'bg-transparent'
       }`}
     >
@@ -44,13 +44,13 @@ function Navigation() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[15px] text-[#525252] hover:text-[#1C1C1C] transition-colors"
+                className="nav-link"
               >
                 {link.label}
               </a>
             ))}
             <a href="#contact" className="btn-primary btn-small">
-              Get Started
+              <span>Get Started</span>
             </a>
           </div>
 
@@ -86,15 +86,19 @@ function Navigation() {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-[#E5E5E5]">
-            <div className="flex flex-col gap-2">
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${
+            isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="py-4 border-t border-[#E5E5E5]/50">
+            <div className="flex flex-col gap-1">
               {navigationLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-3 px-4 text-[#525252] hover:text-[#1C1C1C] hover:bg-[#F0EBE3] rounded-lg transition-colors"
+                  className="py-3 px-4 text-[#525252] hover:text-[#1C1C1C] hover:bg-[#F0EBE3]/70 rounded-xl transition-all duration-200"
                 >
                   {link.label}
                 </a>
@@ -102,13 +106,13 @@ function Navigation() {
               <a
                 href="#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="btn-primary mt-2"
+                className="btn-primary mt-3"
               >
-                Get Started
+                <span>Get Started</span>
               </a>
             </div>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );

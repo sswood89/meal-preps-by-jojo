@@ -1,3 +1,5 @@
+import SectionLabel from './ui/SectionLabel';
+
 const plans = [
   {
     name: 'Weekly',
@@ -30,6 +32,8 @@ const plans = [
     meals: 60,
     price: 1080,
     pricePerMeal: 18,
+    savings: 180,
+    urgency: 'Only 15 slots available this month',
     features: [
       '60 meals per month',
       'Organic ingredients',
@@ -47,7 +51,7 @@ function Pricing() {
       <div className="container">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="badge badge-accent mb-4">Pricing</span>
+          <SectionLabel>OUR PLANS</SectionLabel>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-[#1C1C1C] mb-4">
             Simple, Transparent Pricing
           </h2>
@@ -61,21 +65,29 @@ function Pricing() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`card p-8 ${
+              className={`card p-8 card-hover-lift overflow-hidden ${
                 plan.popular
-                  ? 'ring-2 ring-[#C65D3B] relative'
+                  ? 'ring-premium scale-[1.02] z-10'
                   : ''
               }`}
             >
+              {/* Ribbon Badge for Popular */}
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-[#C65D3B] text-white text-xs font-semibold px-4 py-1.5 rounded-full">
-                    Most Popular
+                <div className="badge-ribbon">
+                  Most Popular
+                </div>
+              )}
+
+              {/* Savings Badge for Monthly */}
+              {plan.savings && (
+                <div className="absolute top-4 left-4">
+                  <span className="bg-[#7FB685]/15 text-[#7FB685] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#7FB685]/30">
+                    SAVE ${plan.savings}/MONTH
                   </span>
                 </div>
               )}
 
-              <div className="mb-6">
+              <div className={`mb-6 ${plan.savings ? 'mt-8' : ''}`}>
                 <h3 className="text-xl font-semibold text-[#1C1C1C] mb-1">
                   {plan.name}
                 </h3>
@@ -91,7 +103,7 @@ function Pricing() {
                   </span>
                   <span className="text-[#737373]">total</span>
                 </div>
-                <p className="text-[#6B8E6B] font-medium mt-1">
+                <p className="text-[#7FB685] font-medium mt-1">
                   ${plan.pricePerMeal}/meal
                 </p>
               </div>
@@ -100,7 +112,7 @@ function Pricing() {
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-[#6B8E6B] flex-shrink-0 mt-0.5"
+                      className="w-5 h-5 text-[#7FB685] flex-shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -120,19 +132,29 @@ function Pricing() {
                   plan.popular ? 'btn-primary' : 'btn-secondary'
                 }`}
               >
-                Get Started
+                <span>Get Started</span>
               </button>
+
+              {/* Urgency Text */}
+              {plan.urgency && (
+                <p className="text-center text-xs text-[#E67E50] font-medium mt-4">
+                  {plan.urgency}
+                </p>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Trust Note */}
+        {/* Enhanced Trust Note */}
         <div className="text-center mt-12">
+          <p className="text-[#525252] text-sm max-w-2xl mx-auto mb-4">
+            All plans include free delivery, flexible scheduling, and our satisfaction guarantee. Cancel anytime with no penalties.
+          </p>
           <p className="text-[#737373] text-sm flex items-center justify-center gap-2">
-            <svg className="w-4 h-4 text-[#6B8E6B]" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 text-[#7FB685]" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            30-day money-back guarantee • Cancel anytime • Free delivery in LA
+            30-day money-back guarantee
           </p>
         </div>
       </div>
