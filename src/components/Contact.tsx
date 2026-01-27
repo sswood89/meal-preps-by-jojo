@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
+import SectionLabel from './ui/SectionLabel';
 
 interface FormData {
   name: string;
@@ -45,7 +46,7 @@ function Contact() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left - Info */}
           <div>
-            <span className="badge bg-[#C65D3B]/10 text-[#D97B5C] mb-4">Contact</span>
+            <SectionLabel className="text-[#F09670]">GET STARTED</SectionLabel>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-white mb-4">
               Get Started Today
             </h2>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import SectionLabel from './ui/SectionLabel';
 
 // Placeholder posts - replace with real Instagram API data
 const instagramPosts = [
@@ -100,7 +101,7 @@ function InstagramFeed() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
-      const scrollAmount = 320;
+      const scrollAmount = 340; // Increased for larger thumbnails
       const newPosition = direction === 'left'
         ? scrollPosition - scrollAmount
         : scrollPosition + scrollAmount;
@@ -115,9 +116,9 @@ function InstagramFeed() {
     <section className="section bg-[#FAF7F2]">
       <div className="container">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
-            <span className="badge badge-accent mb-4">Follow Along</span>
+            <SectionLabel>FRESH FROM THE KITCHEN</SectionLabel>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-[#1C1C1C]">
               Fresh From Our Kitchen
             </h2>
@@ -126,7 +127,7 @@ function InstagramFeed() {
             href="https://instagram.com/mealprepsbyjojo"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#C65D3B] font-medium hover:text-[#A84E30] transition-colors"
+            className="inline-flex items-center gap-2 text-[#E67E50] font-medium hover:text-[#D86D40] transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
@@ -136,6 +137,11 @@ function InstagramFeed() {
             @mealprepsbyjojo
           </a>
         </div>
+
+        {/* Section Intro */}
+        <p className="text-[#525252] text-lg mb-10 max-w-2xl">
+          See what's cooking this week. Follow along for daily meal inspiration, prep tips, and exclusive subscriber offers.
+        </p>
 
         {/* Carousel Container */}
         <div className="relative">
@@ -171,10 +177,10 @@ function InstagramFeed() {
             </svg>
           </button>
 
-          {/* Carousel */}
+          {/* Carousel - Enhanced with larger thumbnails */}
           <div
             ref={carouselRef}
-            className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 snap-x snap-mandatory"
+            className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 snap-x snap-mandatory cursor-grab active:cursor-grabbing"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {instagramPosts.map((post) => (
@@ -183,36 +189,51 @@ function InstagramFeed() {
                 href="https://instagram.com/mealprepsbyjojo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 w-72 group snap-start"
+                className="flex-shrink-0 w-[300px] group snap-start"
               >
-                <div className="relative aspect-square rounded-2xl bg-[#F0EBE3] overflow-hidden border border-[#E5E5E5] group-hover:border-[#C65D3B] transition-colors">
+                <div className="relative w-[300px] h-[300px] rounded-2xl bg-[#F0EBE3] overflow-hidden border border-[#E5E5E5] group-hover:border-[#E67E50] transition-all duration-300 group-hover:shadow-lg">
                   {/* Placeholder Image */}
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-7xl">{post.image}</span>
+                    <span className="text-8xl">{post.image}</span>
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-[#1C1C1C]/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="flex items-center gap-6 text-white">
+                  {/* Enhanced Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1C]/90 via-[#1C1C1C]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                    {/* Likes and Instagram icon */}
+                    <div className="flex items-center justify-between text-white mb-2">
                       <div className="flex items-center gap-2">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                         </svg>
                         <span className="font-semibold">{post.likes}</span>
                       </div>
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
                       </svg>
                     </div>
+                    {/* Caption preview */}
+                    <p className="text-white/90 text-sm line-clamp-2">
+                      {post.caption}
+                    </p>
                   </div>
                 </div>
-
-                {/* Caption */}
-                <p className="mt-3 text-sm text-[#525252] line-clamp-2">
-                  {post.caption}
-                </p>
               </a>
             ))}
+          </div>
+
+          {/* Floating Follow Label */}
+          <div className="absolute bottom-8 right-8 hidden lg:block">
+            <a
+              href="https://instagram.com/mealprepsbyjojo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-[#E67E50] font-medium text-sm hover:bg-white transition-colors"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
+              </svg>
+              Follow @mealprepsbyjojo
+            </a>
           </div>
         </div>
 
