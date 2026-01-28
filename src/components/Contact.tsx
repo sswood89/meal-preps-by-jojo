@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
 import SectionLabel from './ui/SectionLabel';
+import { useTracking } from '../providers/TrackingProvider';
 
 interface FormData {
   name: string;
@@ -9,6 +10,7 @@ interface FormData {
 }
 
 function Contact() {
+  const { submitContactForm } = useTracking();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -17,27 +19,38 @@ function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    // Clear error when user starts typing
+    if (submitError) setSubmitError(null);
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await submitContactForm({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || undefined,
+      message: formData.message || undefined,
+    });
 
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
     setIsSubmitting(false);
-    setFormData({ name: '', email: '', phone: '', message: '' });
 
-    setTimeout(() => setIsSubmitted(false), 5000);
+    if (result.success) {
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } else {
+      setSubmitError(result.message);
+    }
   };
 
   return (
@@ -183,6 +196,12 @@ function Contact() {
                     className="input-premium resize-none"
                   />
                 </div>
+
+                {submitError && (
+                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                    {submitError}
+                  </div>
+                )}
 
                 <button
                   type="submit"

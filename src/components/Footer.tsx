@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTracking } from '../providers/TrackingProvider';
 
 const quickLinks = [
   { label: 'Pricing', href: '#pricing' },
@@ -10,16 +11,31 @@ const quickLinks = [
 ];
 
 function Footer() {
+  const { subscribeNewsletter } = useTracking();
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subscribeMessage, setSubscribeMessage] = useState('');
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      console.log('Newsletter signup:', email);
+    if (!email) return;
+
+    setIsSubmitting(true);
+    const result = await subscribeNewsletter(email, 'website_footer');
+    setIsSubmitting(false);
+
+    if (result.success) {
       setIsSubscribed(true);
+      setSubscribeMessage(result.message);
       setEmail('');
-      setTimeout(() => setIsSubscribed(false), 3000);
+      setTimeout(() => {
+        setIsSubscribed(false);
+        setSubscribeMessage('');
+      }, 3000);
+    } else {
+      setSubscribeMessage(result.message);
+      setTimeout(() => setSubscribeMessage(''), 3000);
     }
   };
 
@@ -48,21 +64,28 @@ function Footer() {
               </p>
             </div>
 
-            <form onSubmit={handleNewsletterSubmit} className="flex w-full max-w-md gap-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="input-premium flex-1"
-                required
-              />
-              <button
-                type="submit"
-                className="btn-primary whitespace-nowrap"
-              >
-                <span>{isSubscribed ? 'Subscribed!' : 'Subscribe'}</span>
-              </button>
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col w-full max-w-md gap-2">
+              <div className="flex gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="input-premium flex-1"
+                  required
+                  disabled={isSubmitting}
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary whitespace-nowrap disabled:opacity-50"
+                >
+                  <span>{isSubmitting ? 'Subscribing...' : isSubscribed ? 'Subscribed!' : 'Subscribe'}</span>
+                </button>
+              </div>
+              {subscribeMessage && !isSubscribed && (
+                <p className="text-red-400 text-sm">{subscribeMessage}</p>
+              )}
             </form>
           </div>
         </div>

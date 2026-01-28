@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import SectionLabel from './ui/SectionLabel';
+import { useTracking } from '../providers/TrackingProvider';
+import { useCart } from '../providers/CartProvider';
+import { CheckoutModal } from './Checkout';
 
 const plans = [
   {
@@ -46,6 +50,18 @@ const plans = [
 ];
 
 function Pricing() {
+  const { trackPlanSelect } = useTracking();
+  const { setSelectedPlan } = useCart();
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [selectedPlanName, setSelectedPlanName] = useState<string | undefined>();
+
+  const handlePlanSelect = (plan: typeof plans[0]) => {
+    trackPlanSelect(plan.name, plan.price);
+    setSelectedPlan({ name: plan.name, price: plan.price, meals: plan.meals });
+    setSelectedPlanName(plan.name);
+    setCheckoutOpen(true);
+  };
+
   return (
     <section id="pricing" className="section bg-[#F0EBE3]">
       <div className="container">
@@ -128,6 +144,7 @@ function Pricing() {
               </ul>
 
               <button
+                onClick={() => handlePlanSelect(plan)}
                 className={`w-full ${
                   plan.popular ? 'btn-primary' : 'btn-secondary'
                 }`}
@@ -158,6 +175,12 @@ function Pricing() {
           </p>
         </div>
       </div>
+
+      <CheckoutModal
+        isOpen={checkoutOpen}
+        onClose={() => setCheckoutOpen(false)}
+        planName={selectedPlanName}
+      />
     </section>
   );
 }
